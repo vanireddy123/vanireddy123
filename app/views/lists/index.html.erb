@@ -1,0 +1,57 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Lists</h1>
+<% form_tag lists_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+
+<div id="lists">
+	<form class="d-flex" method="GET" action="/search">
+	<input class= "col-sm-2 col-form-label" type ="search" arial_label = "search" name = "@query" method ="GET"%>
+        
+	    <button class= "btn-outline-success" type="submit">Search</button>
+	</form>
+<div class="table-responsive-sm">
+		<p align="right">
+  
+  <button class="btn " type="button" style="margin-left:auto;margin-right:auto;display:block;margin-bottom:0%"><%= link_to "Add", new_list_path %></button>
+</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>City</th>
+    </tr>
+  </thead>
+
+  <tbody>
+	<% @lists.each do |list| %>
+    <tr>
+        <td><%= list.name %></td>
+        <td><%= list.city.compact_blank.join(", ") %></td>
+        <td>
+          <ul class="list-inline m-0">
+            <li class="list-inline-item">
+              <button class="btn" type="button" data-toggle="tooltip"    data-placement="top" title="Show"><%= link_to "Show", list %> 
+                </button>
+            </li>
+              <li class="list-inline-item">
+                <button class="btn " type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i><%= link_to "Edit", edit_list_path(list) %></button>
+            </li>
+            <li class="list-inline-item">
+              <i class="fa fa-trash">
+              <%= button_to "Delete", list, method: :delete, remote: true, class:"btn btn-danger btn-sm rounded-0"%>
+                
+            </li>                                       
+          </ul>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+
+
